@@ -1,0 +1,12 @@
+{
+  "name": "sakhi",
+  "version": "1.0.0",
+  "description": "Sakhi: a bilingual helper app for women in rural areas (health, safety, livelihood, study).",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/agent.test.js",
+    "start": "python -m http.server 8080"
+  },
+  "license": "UNLICENSED"
+}

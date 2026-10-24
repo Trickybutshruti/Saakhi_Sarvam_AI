@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sakhi — Health, Safety and Growth</title>
+  <meta name="description" content="Sakhi: a bilingual helper for women in rural areas. Health guidance, safety help, business and study ideas, and a private diary.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23c2410c'/%3E%3Ctext x='50' y='66' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'%3Eस%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">स</div>
+      <div>
+        <h1 data-i18n="appName">Sakhi</h1>
+        <p class="tagline" data-i18n="tagline">Your friend for health, safety and growth</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" class="lang-btn">English</button>
+        <button type="button" data-lang="hi" class="lang-btn">हिन्दी</button>
+      </div>
+      <a class="sos" href="tel:112" data-i18n="sos">SOS 112</a>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button type="button" class="tab active" role="tab" data-tab="chat" aria-selected="true"><span class="tab-icon">💬</span><span data-i18n="tabChat">Talk</span></button>
+    <button type="button" class="tab" role="tab" data-tab="health" aria-selected="false"><span class="tab-icon">🩺</span><span data-i18n="tabHealth">Health</span></button>
+    <button type="button" class="tab" role="tab" data-tab="safety" aria-selected="false"><span class="tab-icon">🛡️</span><span data-i18n="tabSafety">Safety</span></button>
+    <button type="button" class="tab" role="tab" data-tab="grow" aria-selected="false"><span class="tab-icon">🌱</span><span data-i18n="tabGrow">Grow</span></button>
+    <button type="button" class="tab" role="tab" data-tab="diary" aria-selected="false"><span class="tab-icon">📔</span><span data-i18n="tabDiary">My Diary</span></button>
+  </nav>
+
+  <main>
+    <!-- TALK: the agent -->
+    <section class="view active" id="view-chat" data-view="chat">
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <div class="chips" id="chips"></div>
+      <form class="composer" id="composer">
+        <button type="button" class="icon-btn mic" id="mic" aria-label="Speak" title="Speak">🎤</button>
+        <input type="text" id="msg" autocomplete="off" data-i18n-ph="typeHere" placeholder="Type or speak your problem…">
+        <button type="submit" class="send" data-i18n="send">Send</button>
+      </form>
+      <label class="toggle"><input type="checkbox" id="readAloud"> <span data-i18n="readAloud">Read replies aloud</span></label>
+      <p class="note" id="voiceNote" hidden></p>
+    </section>
+
+    <!-- HEALTH -->
+    <section class="view" id="view-health" data-view="health">
+      <h2 data-i18n="healthTopics">Health topics</h2>
+      <div class="topic-grid" id="topics"></div>
+      <div class="panel" id="topicPanel" hidden></div>
+
+      <div class="card">
+        <h3 data-i18n="findCentre">Find a health centre near me</h3>
+        <div class="row">
+          <button type="button" class="btn" id="locate" data-i18n="findCentre">Find a health centre near me</button>
+          <a class="btn ghost" href="tel:102" data-i18n="callASHA">Call 102 (mother and child health)</a>
+        </div>
+        <p class="note" id="locateStatus" hidden></p>
+        <p class="note" data-i18n="ayushman">Free treatment: check if your family is eligible for Ayushman Bharat (PM-JAY) at your nearest Common Service Centre or health centre.</p>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="visitTitle">Request a doctor visit</h3>
+        <p class="note" data-i18n="visitNote">This saves your request on this device. It does not book a slot. Call the health centre to confirm.</p>
+        <form id="visitForm" class="form">
+          <label><span data-i18n="name">Your name</span><input name="name" required></label>
+          <label><span data-i18n="village">Village or town</span><input name="village"></label>
+          <label><span data-i18n="phone">Phone (optional)</span><input name="phone" type="tel" inputmode="tel"></label>
+          <label class="wide"><span data-i18n="concern">What is the problem?</span><textarea name="concern" rows="2" required></textarea></label>
+          <label><span data-i18n="facility">Where would you like to go?</span>
+            <select name="facility" id="facility"></select>
+          </label>
+          <label><span data-i18n="preferredDate">Preferred date</span><input name="date" type="date"></label>
+          <button type="submit" class="btn wide" data-i18n="submitVisit">Save request</button>
+        </form>
+        <ul class="list" id="visits"></ul>
+      </div>
+    </section>
+
+    <!-- SAFETY -->
+    <section class="view" id="view-safety" data-view="safety">
+      <div class="hero-safe">
+        <h2 data-i18n="safetyTitle">You are not alone</h2>
+        <p data-i18n="safetyIntro">Tap a number to call. These calls are free.</p>
+      </div>
+      <div class="sos-grid" id="helplines"></div>
+
+      <div class="card">
+        <h3 data-i18n="checklistTitle">Safety steps</h3>
+        <ol class="steps" id="checklist"></ol>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="incidentTitle">Private incident log</h3>
+        <p class="note" data-i18n="incidentNote">Stored only on this device. Export it if you want to keep a copy.</p>
+        <form id="incidentForm" class="form">
+          <label><span data-i18n="incidentWhen">Date and time</span><input name="when" type="datetime-local"></label>
+          <label><span data-i18n="incidentWhere">Place</span><input name="where"></label>
+          <label class="wide"><span data-i18n="incidentWhat">What happened?</span><textarea name="body" rows="3" required></textarea></label>
+          <button type="submit" class="btn wide" data-i18n="saveIncident">Save entry</button>
+        </form>
+        <ul class="list" id="incidents"></ul>
+        <button type="button" class="btn ghost" id="exportSafety" data-i18n="export">Download as text</button>
+      </div>
+    </section>
+
+    <!-- GROW -->
+    <section class="view" id="view-grow" data-view="grow">
+      <h2 data-i18n="growTitle">Start something of your own</h2>
+      <h3 data-i18n="ideasTitle">Business ideas</h3>
+      <div class="cards" id="ideas"></div>
+      <h3 data-i18n="studyTitle">Study and skills</h3>
+      <div class="cards" id="studies"></div>
+      <h3 data-i18n="fundingTitle">Support you can ask about</h3>
+      <ul class="bullets" id="funding"></ul>
+    </section>
+
+    <!-- DIARY -->
+    <section class="view" id="view-diary" data-view="diary">
+      <h2 data-i18n="diaryTitle">Speak your heart</h2>
+      <p class="note" data-i18n="diaryNote">Write or speak. Entries stay on this device and are never sent anywhere.</p>
+      <div class="card">
+        <textarea id="diaryText" rows="4" data-i18n-ph="diaryPlaceholder" placeholder="Write what is on your mind…"></textarea>
+        <div class="row">
+          <button type="button" class="icon-btn mic" id="diaryMic" aria-label="Speak" title="Speak">🎤</button>
+          <button type="button" class="btn" id="saveDiary" data-i18n="saveEntry">Save entry</button>
+        </div>
+        <p class="note" id="diaryStatus" hidden></p>
+      </div>
+      <ul class="list" id="diaryList"></ul>
+      <button type="button" class="btn ghost" id="exportDiary" data-i18n="export">Download as text</button>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
